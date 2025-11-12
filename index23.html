@@ -700,7 +700,8 @@
                 height: 100%;
                 border-radius: 0;
                 display: none; /* hidden by default */
-            }
+                z-index: 5; /* ensure it's above poster but below controls if needed */
+}
         }
     </style>
 </head>
@@ -722,8 +723,11 @@
                     <div>Loading...</div>
                 </div>
                 <video id="liveVideo" playsinline webkit-playsinline></video>
-                <iframe id="youtubeEmbed" width="100%" height="100%" style="display: none; border-radius: 0;" allowfullscreen></iframe>
                 <p id="status">Wake Lock Status: Inactive</p>
+                
+                <!-- Add the YouTube iframe here -->
+                <iframe id="youtubeEmbed" style="display: none; border-radius: 0;" allowfullscreen></iframe>
+                 
                 <div class="controls">
                     <button class="nav-btn" onclick="prevChannel()" title="Previous Channel"><i class="fas fa-chevron-left"></i></button>
                     <button class="control-btn" onclick="togglePlayPause()" id="playPauseBtn" title="Play/Pause"><i class="fas fa-pause"></i></button>
@@ -1929,9 +1933,9 @@ document.addEventListener('visibilitychange', () => {
   }
 });
   </script>
-
+  
 <script>
-function loadSource(sourceIndex) {
+  function loadSource(sourceIndex) {
     if (!currentBackupSources || sourceIndex >= currentBackupSources.length) return;
 
     loadingOverlay.style.display = "flex";
@@ -1942,20 +1946,17 @@ function loadSource(sourceIndex) {
 
     sourceMenu.value = sourceIndex;
 
-    // Check if URL is a YouTube embed
+    // Check if URL is a YouTube embed link
     if (source.url.includes('youtube.com/embed')) {
-        // Hide video player
-        video.style.display = 'none';
-        // Show iframe
-        const iframe = document.getElementById('youtubeEmbed');
-        iframe.src = source.url;
-        iframe.style.display = 'block';
+        // Show iframe, hide video
+        document.getElementById('youtubeEmbed').src = source.url;
+        document.getElementById('youtubeEmbed').style.display = 'block';
 
-        // Hide poster and loading overlay
+        // Hide poster and video
         posterImage.style.display = 'none';
-        loadingOverlay.style.display = 'none';
+        video.style.display = 'none';
 
-        // Stop HLS if running
+        // Destroy HLS if active
         if (hls) {
             hls.destroy();
             hls = null;
@@ -1965,8 +1966,9 @@ function loadSource(sourceIndex) {
         return;
     } else {
         // Not a YouTube link, revert to normal
-        // Show video, hide iframe
+        // Hide iframe
         document.getElementById('youtubeEmbed').style.display = 'none';
+        // Show video
         video.style.display = 'block';
 
         if (hls) {
@@ -2011,6 +2013,7 @@ function loadSource(sourceIndex) {
                 }
             });
         } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+            // Fallback for Safari
             video.src = source.url;
             video.style.display = 'block';
             document.getElementById('youtubeEmbed').style.display = 'none';
@@ -2025,13 +2028,6 @@ function loadSource(sourceIndex) {
         }
     }
 }
-</script>
-
-<script>
-document.getElementById('youtubeEmbed').style.display = 'none';
-video.style.display = 'block';
-}
-});
 </script>
 </body>
 </html>

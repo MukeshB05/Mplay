@@ -717,16 +717,16 @@
     <div class="main-content">
         <section class="player-section">
             <div class="video-container">
-                <img id="posterImage" src="https://i.postimg.cc/Pr9sC68t/T-Play-Cover.jpg" alt="T Play Poster">
-                <div id="loadingOverlay">
-                    <div class="loading-spinner"></div>
-                    <div>Loading...</div>
-                </div>
-                <video id="liveVideo" playsinline webkit-playsinline></video>
-                <p id="status">Wake Lock Status: Inactive</p>
-                
-                <!-- Add the YouTube iframe here -->
-                <iframe id="youtubeEmbed" style="display: none; border-radius: 0;" allowfullscreen></iframe>
+                <!-- Existing elements -->
+                    <video id="liveVideo" playsinline webkit-playsinline></video>
+                    <img id="posterImage" src="https://i.postimg.cc/Pr9sC68t/T-Play-Cover.jpg" alt="T Play Poster">
+            <div id="loadingOverlay">
+            <div class="loading-spinner"></div>
+            <div>Loading...</div>
+            </div>
+
+            <!-- Add the YouTube iframe here -->
+            <iframe id="youtubeEmbed" style="display: none; border-radius: 0;" allowfullscreen></iframe>
                  
                 <div class="controls">
                     <button class="nav-btn" onclick="prevChannel()" title="Previous Channel"><i class="fas fa-chevron-left"></i></button>

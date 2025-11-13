@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T Play</title>
+    <title>T Play - Live TV</title>
     <link rel="icon" href="https://i.postimg.cc/RCnCv14W/T-Play.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -33,30 +33,20 @@
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
 
-        img {
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-        }
-
-        .main-content {
+        .container {
             display: flex;
             min-height: 100vh;
+            padding: 20px;
+            gap: 20px;
         }
 
         .player-section {
             flex: 1;
-            padding: 20px;
             display: flex;
             flex-direction: column;
+            gap: 20px;
         }
 
         .video-container {
@@ -228,13 +218,11 @@
             max-width: 400px;
             background: var(--light-bg);
             padding: 25px 20px;
+            border-radius: 16px;
             overflow-y: auto;
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
-            height: calc(100vh - 60px);
+            height: calc(100vh - 40px);
             position: sticky;
             top: 20px;
-            border-radius: 16px 0 0 16px;
-            margin: 10px 20px 10px 0;
         }
 
         .channels-sidebar::-webkit-scrollbar {
@@ -421,7 +409,7 @@
         }
 
         @media (max-width: 1200px) {
-            .main-content {
+            .container {
                 flex-direction: column;
             }
             
@@ -431,21 +419,23 @@
                 height: auto;
                 position: relative;
                 top: 0;
-                border-radius: 16px;
-                margin: 10px 20px;
             }
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
             .player-section {
-                padding: 15px;
+                padding: 10px;
             }
             
             .controls {
                 padding: 6px 12px;
                 gap: 5px;
-            width: 90%;
-            flex-wrap: wrap;
+                width: 90%;
+                flex-wrap: wrap;
                 justify-content: center;
             }
             
@@ -474,7 +464,7 @@
     </style>
 </head>
 <body>
-    <div class="main-content">
+    <div class="container">
         <section class="player-section">
             <div class="video-container">
                 <video id="liveVideo" playsinline webkit-playsinline></video>
@@ -689,6 +679,9 @@
         ];
 
         function initPlayer() {
+            // Set volume slider to video volume
+            volumeSlider.value = video.volume;
+            
             volumeSlider.addEventListener("input", function() {
                 video.volume = this.value;
                 if (video.volume == 0) {
@@ -1007,17 +1000,6 @@
             } else {
                 document.documentElement.requestFullscreen().catch(e => {
                     console.log("Fullscreen failed:", e);
-                });
-            }
-        }
-
-        function togglePiP() {
-            if (document.pictureInPictureElement) {
-                document.exitPictureInPicture();
-            } else if (document.pictureInPictureEnabled) {
-                video.requestPictureInPicture().catch(e => {
-                    console.log("PiP failed:", e);
-                    showError("Picture-in-Picture not supported");
                 });
             }
         }

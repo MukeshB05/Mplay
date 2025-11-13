@@ -727,7 +727,7 @@
             </div>
 
             <!-- Add the YouTube iframe here -->
-            <iframe id="youtubeEmbed" style="display: none; border-radius: 0;" allowfullscreen></iframe>
+            <iframe id="youtubeEmbed" style="display: none; border-radius: 0;" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                  
                 <div class="controls">
                     <button class="nav-btn" onclick="prevChannel()" title="Previous Channel"><i class="fas fa-chevron-left"></i></button>
@@ -1933,8 +1933,6 @@ document.addEventListener('visibilitychange', () => {
   }
 });
   </script>
-  
-<script>
   function loadSource(sourceIndex) {
     if (!currentBackupSources || sourceIndex >= currentBackupSources.length) return;
 
@@ -1949,8 +1947,9 @@ document.addEventListener('visibilitychange', () => {
     // Check if URL is a YouTube embed link
     if (source.url.includes('youtube.com/embed')) {
         // Show iframe, hide video
-        document.getElementById('youtubeEmbed').src = source.url;
-        document.getElementById('youtubeEmbed').style.display = 'block';
+        const iframe = document.getElementById('youtubeEmbed');
+        iframe.src = source.url;
+        iframe.style.display = 'block';
 
         // Hide poster and video
         posterImage.style.display = 'none';
@@ -1961,13 +1960,12 @@ document.addEventListener('visibilitychange', () => {
             hls.destroy();
             hls = null;
         }
-
-        // No need to load HLS
         return;
     } else {
         // Not a YouTube link, revert to normal
         // Hide iframe
         document.getElementById('youtubeEmbed').style.display = 'none';
+
         // Show video
         video.style.display = 'block';
 
@@ -2028,6 +2026,7 @@ document.addEventListener('visibilitychange', () => {
         }
     }
 }
-</script>
+<script>
+  
 </body>
 </html>

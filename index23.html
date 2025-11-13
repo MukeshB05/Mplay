@@ -1880,7 +1880,7 @@
         });
     </script>
 <script>
-function loadSource(sourceIndex) {
+      function loadSource(sourceIndex) {
     if (!currentBackupSources || sourceIndex >= currentBackupSources.length) return;
 
     loadingOverlay.style.display = "flex";
@@ -1888,8 +1888,6 @@ function loadSource(sourceIndex) {
 
     const source = currentBackupSources[sourceIndex];
     currentBackupIndex = sourceIndex;
-
-    sourceMenu.value = sourceIndex;
 
     // Check if URL is a YouTube embed link
     if (source.url.includes('youtube.com/embed')) {
@@ -1908,7 +1906,8 @@ function loadSource(sourceIndex) {
             hls = null;
         }
 
-        // No need to load HLS, just play the iframe video
+        // Optional: autoplay the YouTube video
+        // Note: autoplay may be blocked on some browsers unless user interacts
         return;
     } else {
         // Not a YouTube link, revert to normal

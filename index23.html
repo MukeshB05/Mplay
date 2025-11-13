@@ -1003,8 +1003,7 @@
             {
                 name: "BBC News", 
                 sources: [
-                    { name: "Youtube", url: "https://www.youtube.com/embed/9M02G5c6x6w" },
-                    { name: "Server 2", url: "https://tplay.live/bdix/news/bbc-news/index.m3u8" }
+                    { name: "Youtube", url: "https://www.youtube.com/embed/9M02G5c6x6w" }
                 ], 
                 img: "https://i.postimg.cc/s2679ZP4/bbc.jpg", 
                 category: "News",
@@ -1881,59 +1880,7 @@
         });
     </script>
 <script>
-const video = document.getElementById('liveVideo');
-const statusElem = document.getElementById('status');
-let wakeLock = null;
-
-// Function to request a wake lock
-const requestWakeLock = async () => {
-  try {
-    wakeLock = await navigator.wakeLock.request('screen');
-    statusElem.textContent = 'Wake Lock Status: Active';
-    wakeLock.addEventListener('release', () => {
-      statusElem.textContent = 'Wake Lock Status: Released';
-      console.log('Wake Lock released');
-    });
-    console.log('Wake Lock requested');
-  } catch (err) {
-    // Handle the error if the wake lock request fails
-    statusElem.textContent = `Wake Lock Status: Failed (${err.message})`;
-    console.error(`${err.name}, ${err.message}`);
-  }
-};
-
-// Function to release the wake lock
-const releaseWakeLock = async () => {
-  if (wakeLock) {
-    await wakeLock.release();
-    wakeLock = null;
-  }
-};
-
-// Request wake lock when video starts playing
-video.addEventListener('play', () => {
-  requestWakeLock();
-});
-
-// Release wake lock when video pauses or ends
-video.addEventListener('pause', () => {
-  releaseWakeLock();
-});
-
-video.addEventListener('ended', () => {
-  releaseWakeLock();
-});
-
-// Handle page visibility changes (important for mobile browsers)
-document.addEventListener('visibilitychange', () => {
-  if (wakeLock !== null && document.visibilityState === 'visible') {
-    requestWakeLock();
-  } else if (wakeLock !== null && document.visibilityState === 'hidden') {
-    releaseWakeLock();
-  }
-});
-  </script>
-  function loadSource(sourceIndex) {
+function loadSource(sourceIndex) {
     if (!currentBackupSources || sourceIndex >= currentBackupSources.length) return;
 
     loadingOverlay.style.display = "flex";
@@ -1948,7 +1895,7 @@ document.addEventListener('visibilitychange', () => {
     if (source.url.includes('youtube.com/embed')) {
         // Show iframe, hide video
         const iframe = document.getElementById('youtubeEmbed');
-        iframe.src = source.url;
+        iframe.src = source.url; // set the source
         iframe.style.display = 'block';
 
         // Hide poster and video
@@ -1960,6 +1907,8 @@ document.addEventListener('visibilitychange', () => {
             hls.destroy();
             hls = null;
         }
+
+        // No need to load HLS, just play the iframe video
         return;
     } else {
         // Not a YouTube link, revert to normal
@@ -2014,6 +1963,8 @@ document.addEventListener('visibilitychange', () => {
             // Fallback for Safari
             video.src = source.url;
             video.style.display = 'block';
+
+            // Hide iframe
             document.getElementById('youtubeEmbed').style.display = 'none';
 
             video.play().catch(e => {

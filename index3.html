@@ -1827,11 +1827,15 @@
 
         // Load Source
         function loadSource(sourceIndex) {
-            if (!currentBackupSources || sourceIndex >= currentBackupSources.length) return;
+            cleanupPlayers();
             
+            const source = currentBackupSources[sourceIndex];
+            currentChannelUrl = source.url;
+            currentBackupIndex = sourceIndex;
+
             loadingOverlay.style.display = "flex";
             errorMessage.style.display = "none";
-            
+
             // Check if this is a DRM source
             if (source.type === 'dash' && source.drm) {
                 loadDrmSource(source);

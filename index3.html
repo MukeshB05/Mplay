@@ -763,6 +763,7 @@
                 <button class="active" onclick="filterCategory('all', event)">All</button>
                 <button onclick="filterCategory('News', event)">News</button>
                 <button onclick="filterCategory('Kanyakumari District Channel', event)">Kanyakumari District Channel</button>
+                <button onclick="filterCategory('Local Cable Channel (Tamilnadu)', event)">Local Cable Channel (Tamilnadu)</button>
                 <button onclick="filterCategory('Kids', event)">Kids</button>
                 <button onclick="filterCategory('Music', event)">Music</button>
                 <button onclick="filterCategory('Movie', event)">Movie</button>
@@ -869,6 +870,33 @@
 
         // Channels Data with DRM Support
         const channels = [
+            { 
+                name: "Global TV", 
+                sources: [
+                    { name: "Server 1", url: "https://play.applelive.in/globaltv/globaltv.m3u8" }
+                ], 
+                img: "https://i.ibb.co/TxFDP8Cz/Globaltvhd.jpg", 
+                category: "Kanyakumari District Channel",
+                description: "India"
+            },
+            { 
+                name: "Kumari Kathir", 
+                sources: [
+                    { name: "Server 1", url: "https://play.applelive.in/jjmax/jjmax.m3u8" }
+                ], 
+                img: "https://i.ibb.co/pBBP582f/Kumari-Kathir.jpg", 
+                category: "Kanyakumari District Channel",
+                description: "India"
+            },
+            { 
+                name: "MCN HD", 
+                sources: [
+                    { name: "Server 1", url: "https://play.applelive.in/mcntv/mcntv.m3u8" }
+                ], 
+                img: "https://i.ibb.co/b5CS4r6Y/MCNtv.jpg", 
+                category: "Kanyakumari District Channel",
+                description: "India"
+            },
             { 
                 name: "Manorama News", 
                 sources: [
@@ -1118,11 +1146,11 @@
                 description: "India"
             },
             { 
-                name: "MCN HD", 
+                name: "OMM TV", 
                 sources: [
-                    { name: "Server 1", url: "https://play.applelive.in/mcntv/mcntv.m3u8" }
+                    { name: "Server 1", url: "https://live.applelive.in/ommtv/ommtv/index.m3u8" }
                 ], 
-                img: "https://i.ibb.co/b5CS4r6Y/MCNtv.jpg", 
+                img: "https://i.ibb.co/4n195VJ2/ommtv.jpg", 
                 category: "Kanyakumari District Channel",
                 description: "India"
             },
@@ -1305,12 +1333,12 @@
                 description: "India"
             },
             { 
-                name: "Global TV", 
+                name: "Selvi HD", 
                 sources: [
-                    { name: "Server 1", url: "https://play.applelive.in/globaltv/globaltv.m3u8" },
+                    { name: "Server 1", url: "https://live1.sscloud7.in/live/selvitv/index.m3u8" },
                 ], 
-                img: "h", 
-                category: "Movie",
+                img: "https://i.ibb.co/zgYybKF/Selvihd.jpg", 
+                category: "Local Cable Channel (Tamilnadu)",
                 description: "India"
             },
             { 
